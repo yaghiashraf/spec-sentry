@@ -1,0 +1,13 @@
+specs:
+  - id: "stripe-api"
+    name: "Stripe API"
+    source: "url"
+    path_or_url: "https://raw.githubusercontent.com/stripe/openapi/master/openapi/spec3.yaml"
+    owners: ["finops-team"]
+    allowed_breaks: []
+  - id: "github-api"
+    name: "GitHub API"
+    source: "url"
+    path_or_url: "https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/api.github.com/api.github.com.yaml"
+    owners: ["platform-team"]
+    allowed_breaks: []

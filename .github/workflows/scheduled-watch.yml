@@ -1,0 +1,92 @@
+name: "Scheduled Spec Watch (SpecSentry - PAID MODE)"
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Weekly
+  workflow_dispatch:
+
+jobs:
+  monitor-specs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check License
+        env:
+          LICENSE_KEY: ${{ secrets.LICENSE_KEY }}
+        run: |
+          if [ -z "$LICENSE_KEY" ]; then
+            echo "No LICENSE_KEY found. Skipping scheduled watch (Paid feature)."
+            exit 0
+          fi
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install PyYAML
+        run: pip install pyyaml
+
+      - name: Install oasdiff
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/Tufin/oasdiff/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Process Specs
+        run: |
+          python -c "
+          import yaml, json, os, urllib.request, subprocess, datetime
+          
+          with open('config/specs.yml', 'r') as f:
+              config = yaml.safe_load(f)
+              
+          for spec in config.get('specs', []):
+              spec_id = spec['id']
+              url = spec['path_or_url']
+              print(f'Fetching {spec_id} from {url}')
+              
+              # Fetch
+              req = urllib.request.Request(url)
+              with urllib.request.urlopen(req) as response:
+                  content = response.read().decode('utf-8')
+              
+              os.makedirs(f'snapshots/{spec_id}', exist_ok=True)
+              os.makedirs('reports', exist_ok=True)
+              
+              timestamp = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+              current_file = f'snapshots/{spec_id}/{timestamp}.yaml'
+              
+              with open(current_file, 'w') as f:
+                  f.write(content)
+                  
+              # Find previous snapshot
+              snapshots = sorted([s for s in os.listdir(f'snapshots/{spec_id}') if s != f'{timestamp}.yaml'])
+              if snapshots:
+                  prev_file = f'snapshots/{spec_id}/{snapshots[-1]}'
+                  
+                  # Diff
+                  print(f'Diffing {prev_file} vs {current_file}')
+                  cmd = f'oasdiff changelog {prev_file} {current_file} -f markdown'
+                  result = subprocess.run(cmd.split(), capture_output=True, text=True)
+                  
+                  if result.stdout.strip():
+                      print('Changes detected!')
+                      report_file = f'reports/{timestamp}_{spec_id}_changelog.md'
+                      with open(report_file, 'w') as rf:
+                          rf.write(result.stdout)
+                      
+                      # Indicate changes to open a PR
+                      with open(os.environ['GITHUB_ENV'], 'a') as env_file:
+                          env_file.write('CHANGES_DETECTED=true
+')
+          "
+
+      - name: Create Pull Request
+        if: env.CHANGES_DETECTED == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: update monitored OpenAPI specs"
+          title: "🔍 SpecSentry: Upstream OpenAPI Changes Detected"
+          body: "SpecSentry has detected changes in monitored upstream API specs. See reports for details."
+          branch: "specsentry-updates"
