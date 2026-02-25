@@ -25,9 +25,15 @@ export default async function DashboardPage() {
       <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Projects</h2>
-          <Link href="/projects/new" className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition-colors">
-            + New Project
-          </Link>
+          {license.tier === 'paid' ? (
+            <Link href="/projects/new" className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors shadow-sm">
+              + New Project
+            </Link>
+          ) : (
+            <button disabled className="bg-gray-200 text-gray-400 px-4 py-2 rounded-md cursor-not-allowed" title="Upgrade to Paid to add more projects">
+              + New Project (Paid Only)
+            </button>
+          )}
         </div>
         
         <div className="border border-gray-200 rounded-md overflow-hidden">
