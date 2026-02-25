@@ -76,15 +76,24 @@ export function HeroAnimation() {
                 <span className="text-pink-400">responses:</span>
                 <div className="pl-3 text-gray-400 mt-1">
                   '200': ...<br/>
-                  <span className="text-pink-400">type:</span> 
-                  <motion.span 
-                    animate={{ color: ['#86efac', '#86efac', '#f87171', '#f87171'] }}
-                    transition={{ duration: LOOP_DURATION, times: [0, 0.25, 0.28, 1], repeat: Infinity }}
-                    className="ml-1 font-bold"
-                  >
-                    <motion.span animate={{ display: ['inline', 'inline', 'none', 'none'] }} transition={{ duration: LOOP_DURATION, times: [0, 0.25, 0.28, 1], repeat: Infinity }}>integer</motion.span>
-                    <motion.span animate={{ display: ['none', 'none', 'inline', 'inline'] }} transition={{ duration: LOOP_DURATION, times: [0, 0.25, 0.28, 1], repeat: Infinity }}>string</motion.span>
-                  </motion.span>
+                  <div className="relative inline-block w-full">
+                    <span className="text-pink-400">type:</span> 
+                    <motion.span 
+                      animate={{ color: ['#86efac', '#86efac', '#f87171', '#f87171'] }}
+                      transition={{ duration: LOOP_DURATION, times: [0, 0.25, 0.28, 1], repeat: Infinity }}
+                      className="ml-1 font-bold"
+                    >
+                      <motion.span animate={{ display: ['inline', 'inline', 'none', 'none'] }} transition={{ duration: LOOP_DURATION, times: [0, 0.25, 0.28, 1], repeat: Infinity }}>integer</motion.span>
+                      <motion.span animate={{ display: ['none', 'none', 'inline', 'inline'] }} transition={{ duration: LOOP_DURATION, times: [0, 0.25, 0.28, 1], repeat: Infinity }}>string</motion.span>
+                    </motion.span>
+                    
+                    {/* Breaking Change Highlight Box */}
+                    <motion.div
+                      className="absolute -top-1 -bottom-1 -left-2 -right-2 border-2 border-red-500 rounded bg-red-500/20 z-10 pointer-events-none"
+                      animate={{ opacity: [0, 0, 1, 1, 0], scale: [1.05, 1.05, 1, 1, 1] }}
+                      transition={{ duration: LOOP_DURATION, times: [0, 0.45, 0.48, 0.9, 1], repeat: Infinity }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -100,13 +109,6 @@ export function HeroAnimation() {
               &nbsp;&nbsp;<span className="text-gray-500">summary: "Create"</span>
             </motion.div>
           </div>
-
-          {/* Breaking Change Highlight Box */}
-          <motion.div
-            className="absolute top-[115px] -left-2 -right-2 h-7 border-2 border-red-500 rounded bg-red-500/20 z-10 pointer-events-none"
-            animate={{ opacity: [0, 0, 1, 1, 0], scale: [1.1, 1.1, 1, 1, 1] }}
-            transition={{ duration: LOOP_DURATION, times: [0, 0.45, 0.48, 0.9, 1], repeat: Infinity }}
-          />
         </div>
         
         {/* Scanner Laser */}
