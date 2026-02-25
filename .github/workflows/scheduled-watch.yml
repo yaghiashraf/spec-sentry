@@ -78,8 +78,7 @@ jobs:
                       
                       # Indicate changes to open a PR
                       with open(os.environ['GITHUB_ENV'], 'a') as env_file:
-                          env_file.write('CHANGES_DETECTED=true
-')
+                          env_file.write('CHANGES_DETECTED=true\\n')
           "
 
       - name: Create Pull Request
