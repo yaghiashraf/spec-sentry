@@ -212,7 +212,7 @@ export default function LandingPage() {
               </div>
 
               {/* Paid Tier */}
-              <div className="bg-gray-900 rounded-2xl shadow-xl border border-gray-800 p-8 flex flex-col relative overflow-hidden transform md:-translate-y-4">
+              <div className="bg-gray-900 rounded-2xl shadow-xl border border-gray-800 p-8 flex flex-col relative overflow-hidden">
                 <div className="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 bg-indigo-500 rounded-full mix-blend-screen filter blur-3xl opacity-50" />
                 <h3 className="text-2xl font-bold text-white z-10">Paid License</h3>
                 <div className="mt-4 flex items-baseline text-5xl font-extrabold text-white z-10">
