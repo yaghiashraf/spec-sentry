@@ -148,8 +148,8 @@ export function HeroAnimation() {
 
       {/* Changelog Factory Output */}
       <motion.div
-        className="absolute bottom-6 left-1/2 -ml-[90px] w-[180px] bg-white text-gray-900 rounded-lg shadow-2xl z-40 overflow-hidden border border-gray-200"
-        animate={{ y: [60, 60, 0, 0, 60], opacity: [0, 0, 1, 1, 0], scale: [0.8, 0.8, 1, 1, 0.8] }}
+        className="absolute bottom-10 left-1/2 -ml-[90px] w-[180px] bg-white text-gray-900 rounded-lg shadow-2xl z-40 overflow-hidden border border-gray-200"
+        animate={{ y: [100, 100, -10, -10, 100], opacity: [0, 0, 1, 1, 0], scale: [0.8, 0.8, 1, 1, 0.8] }}
         transition={{ duration: LOOP_DURATION, times: [0, 0.55, 0.6, 0.9, 0.95], repeat: Infinity }}
       >
         <div className="bg-gray-100 border-b border-gray-200 px-3 py-2 flex items-center gap-2 shadow-sm">
