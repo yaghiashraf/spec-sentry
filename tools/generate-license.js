@@ -32,11 +32,9 @@ async function generate() {
 
   console.log('--- PUBLIC KEY FOR ENV (NEXT_PUBLIC_LICENSE_PUB_KEY) ---');
   console.log(JSON.stringify(publicJwk));
-  console.log('
---- LICENSE KEY (LICENSE_KEY) ---');
+  console.log('\\n--- LICENSE KEY (LICENSE_KEY) ---');
   console.log(jwt);
-  console.log('
-Save NEXT_PUBLIC_LICENSE_PUB_KEY and LICENSE_KEY in your .env.local file.');
+  console.log('\\nSave NEXT_PUBLIC_LICENSE_PUB_KEY and LICENSE_KEY in your .env.local file.');
 }
 
 generate().catch(console.error);
