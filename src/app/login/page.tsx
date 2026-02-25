@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Github } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Logo } from '@/components/Logo';
+import { signIn } from 'next-auth/react';
 
 export default function LoginPage() {
   return (
@@ -36,26 +37,26 @@ export default function LoginPage() {
           </div>
           
           <div className="space-y-6 pt-2">
-            <Link
-              href="/dashboard"
+            <button
+              onClick={() => signIn('github', { callbackUrl: '/dashboard' })}
               className="w-full flex items-center justify-center py-3.5 px-4 border border-transparent rounded-xl shadow-md text-sm font-semibold text-white bg-gray-900 hover:bg-black hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-all transform hover:-translate-y-0.5"
               aria-label="Sign in with GitHub"
             >
               <Github className="w-5 h-5 mr-3" aria-hidden="true" />
               Sign in with GitHub
-            </Link>
+            </button>
             
             <div className="relative my-8">
               <div className="absolute inset-0 flex items-center" aria-hidden="true">
                 <div className="w-full border-t border-gray-200"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-white text-gray-500 font-medium tracking-wide text-xs uppercase rounded-full border border-gray-200">Demo Environment</span>
+                <span className="px-4 bg-white text-gray-500 font-medium tracking-wide text-xs uppercase rounded-full border border-gray-200">Secure Access</span>
               </div>
             </div>
             
             <div className="text-center text-sm text-gray-600 bg-indigo-50/50 p-4 rounded-xl border border-indigo-100/50" role="note">
-              This is a template simulation. Production authentication can be seamlessly integrated using <strong className="font-semibold text-indigo-900">NextAuth.js</strong>.
+              Authentication is securely powered by <strong className="font-semibold text-indigo-900">NextAuth.js</strong>.
             </div>
           </div>
         </div>
