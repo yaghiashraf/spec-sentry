@@ -1,8 +1,6 @@
 name: "Scheduled Spec Watch (SpecSentry - PAID MODE)"
 
 on:
-  schedule:
-    - cron: '0 0 * * 0' # Weekly
   workflow_dispatch:
 
 jobs:
